@@ -20,12 +20,15 @@
     <script src="{{ asset('js/bootstrap.min.js') }}"></script>
 
     <style>
-        #chatMessages{
+        #newRoomModal,
+        #roomModal{
             font-size: 14px;
             font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+            color: black;
+        }
+        #chatMessages{
             height: 200px;
             overflow-y: scroll;
-            color: black;
             background-color: #1b6d85;
         }
     </style>
@@ -37,14 +40,14 @@
 </head>
 <body>
 <div class="container">
-    <aside class="sidebar clearfix">
-        <nav>
-            <a href="#"><i class="fa fa-fw fa-comments-o"></i></a>
-            <a href="#"><i class="fa fa-fw fa-heart-o"></i></a>
-            <a href="#"><i class="fa fa-fw fa-send-o"></i></a>
-            <a href="#"><i class="fa fa-fw fa-smile-o"></i></a>
-        </nav>
-    </aside>
+    {{--<aside class="sidebar clearfix">--}}
+        {{--<nav>--}}
+            {{--<a href="#"><i class="fa fa-fw fa-comments-o"></i></a>--}}
+            {{--<a href="#"><i class="fa fa-fw fa-heart-o"></i></a>--}}
+            {{--<a href="#"><i class="fa fa-fw fa-send-o"></i></a>--}}
+            {{--<a href="#"><i class="fa fa-fw fa-smile-o"></i></a>--}}
+        {{--</nav>--}}
+    {{--</aside>--}}
     <div id="mmmsearch" class="mmmsearch">
         <form class="mmmsearch-form">
             <input class="mmmsearch-input" type="search" placeholder="All Rooms"/>
@@ -58,12 +61,25 @@
     <header class="ccc-header">
         <h1>ChatRooms <span>Laravel Real Time Web Chat App.</span></h1>
         <div class="ccc-links">
-            <a class="ccc-icon ccc-icon-prev" href="#"><span>Previous Demo</span></a>
-            <a class="ccc-icon ccc-icon-drop" href="#"><span>Back to the ccc Article</span></a>
+            @if(Auth::check())
+                <a class="btn btn-xs btn-warning" href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-app').submit();"><span>Logout</span></a>
+                <button class="btn btn-xs btn-success" data-toggle="modal" data-target="#newRoomModal"><span>New Room</span></button>
+            @else
+                <a class="btn btn-xs btn-info" href="{{ route('register') }}"><span>Register</span></a>
+                <a class="btn btn-xs btn-success" href="{{ route('login') }}"><span>Login</span></a>
+            @endif
         </div>
     </header>
     <div class="overlay"></div>
 </div>
+
+{{--//ss TODO: https://stackoverflow.com/questions/44716379/laravel-5-4-24-throws-methodnotallowedhttpexception-during-logout-of-users--}}
+@if(Auth::check())
+    <form id="logout-app" action="{{ route('logout') }}" method="POST" style="display: none;">
+        {{ csrf_field() }}
+    </form>
+@endif
+
 <script src="{{ asset('js/classie.js') }}"></script>
 <script>
     (function() {

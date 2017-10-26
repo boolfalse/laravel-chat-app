@@ -59,7 +59,7 @@ body {
 	font-weight: 700;
 	border: none;
 	background: transparent;
-	font-size: 0.8em;
+	font-size: 1.8em;
 	color: #ec5a62;
 	-webkit-transition: font-size 0.5s cubic-bezier(0.7,0,0.3,1);
 	transition: font-size 0.5s cubic-bezier(0.7,0,0.3,1);
