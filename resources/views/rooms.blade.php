@@ -40,17 +40,17 @@
 
                             <div class="alert alert-danger print-error-msg" style="display:none"><ul></ul></div>
 
-                            <div id="chatMessages"></div>
+                            <div class="col-md-12">
+                                <div class="form-group" id="chatMessages"></div>
 
-                            <div class="form-group">
-                                <input id="messageInput" type="text" class="form-control" value="" placeholder="Enter Message">
+                                <div class="form-group">
+                                    <input id="messageInput" type="text" class="form-control" value="" placeholder="Enter Message">
+                                </div>
                             </div>
-                        </div>
-                    </div>
 
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fa fa-cancel"></i> Close Room</button>
-                        <button id="send" type="submit" class="btn btn-primary"><i class="fa fa-plus"></i> Send</button>
+                            <button type="button" class="btn btn-warning" data-dismiss="modal"><i class="fa fa-close"></i> Close Room</button>
+                            <button id="send" type="submit" class="btn btn-primary"><i class="fa fa-send"></i> Send</button>
+                        </div>
                     </div>
 
             </div>
@@ -60,12 +60,19 @@
 
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/2.0.4/socket.io.js"></script>
-    {{--<script src="{{ asset('js/socket.io.js') }}"></script>--}}
     <script>
         var socket = io(':6001');
 
         function appendMessage(data) {
             $('#chatMessages').append('<li>' + data.message + '</li>');
+        }
+        function sendMessage(msg) {
+            var message = {
+                message: msg
+            };
+            $('#messageInput').val('');
+            socket.send(message);
+            appendMessage(message);
         }
 
         socket.on('message', function (data) {
@@ -75,28 +82,27 @@
         $('.dummy-media-object').on('click', function () {
             $('.mmmsearch-close').trigger('click');
             var roomName = $(this).data('room');
-
             socket.send({
                 openRoom: true,
                 roomName: roomName,
                 user: 22,
                 {{--user: "{{ isset(Auth::user) ? Auth::user()->id : 'user'  }}"--}}
             });
-
             setTimeout(function() {
                 $('#roomModal').modal('show');
             }, 1200);
         });
 
-        $('#send').on('click', function (e) {
-            var msg = {
-                message: $('#messageInput').val()
-            };
-            $('#messageInput').val('');
-            socket.send(msg);
-            appendMessage(msg);
-            return false;
+
+        $('#send').on('click', function () { // sending message with clicking Send button
+            sendMessage($('#messageInput').val());
         });
+        $(document).keypress(function(e) { // sending message with pressing Enter key
+            if(e.which==13 && $('#messageInput').is(":focus")) {
+                sendMessage($('#messageInput').val());
+            }
+        });
+
     </script>
 
 

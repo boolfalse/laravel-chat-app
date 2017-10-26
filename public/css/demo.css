@@ -1,12 +1,12 @@
 @font-face {
 	font-weight: normal;
 	font-style: normal;
-	font-family: 'codropsicons';
-	src:url('../fonts/codropsicons/codropsicons.eot');
-	src:url('../fonts/codropsicons/codropsicons.eot?#iefix') format('embedded-opentype'),
-		url('../fonts/codropsicons/codropsicons.woff') format('woff'),
-		url('../fonts/codropsicons/codropsicons.ttf') format('truetype'),
-		url('../fonts/codropsicons/codropsicons.svg#codropsicons') format('svg');
+	font-family: 'cccicons';
+	src:url('../fonts/cccicons/cccicons.eot');
+	src:url('../fonts/cccicons/cccicons.eot?#iefix') format('embedded-opentype'),
+		url('../fonts/cccicons/cccicons.woff') format('woff'),
+		url('../fonts/cccicons/cccicons.ttf') format('truetype'),
+		url('../fonts/cccicons/cccicons.svg#cccicons') format('svg');
 }
 
 *, *:after, *:before { -webkit-box-sizing: border-box; box-sizing: border-box; }
@@ -34,7 +34,7 @@ a:focus {
 }
 
 /* Header */
-.codrops-header,
+.ccc-header,
 .sidebar {
 	max-width: 50%;
 	float: left;
@@ -59,7 +59,7 @@ a:focus {
 	margin: 0 5px;
 }
 
-.codrops-header h1 {
+.ccc-header h1 {
 	margin: 0;
 	font-weight: 100;
 	font-size: 4.5em;
@@ -68,7 +68,7 @@ a:focus {
 	letter-spacing: -1px;
 }
 
-.codrops-header h1 span {
+.ccc-header h1 span {
 	display: block;
 	font-size: 31.5%;
 	font-weight: 800;
@@ -80,14 +80,14 @@ a:focus {
 }
 
 /* To Navigation Style */
-.codrops-links {
+.ccc-links {
 	text-transform: uppercase;
 	font-weight: 800;
 	font-size: 1.5em;
 	line-height: 2.2;
 }
 
-.codrops-links a {
+.ccc-links a {
 	display: inline-block;
 	padding: 0 0.5em 0 0;
 	margin: 0 1em 0 0;
@@ -96,7 +96,7 @@ a:focus {
 	position: relative;
 }
 
-.codrops-links a:first-child:after {
+.ccc-links a:first-child:after {
 	content: '/';
 	color: rgba(255,255,255,0.2);
 	font-weight: 100;
@@ -109,32 +109,32 @@ a:focus {
 	transform: translateY(-50%);
 }
 
-.codrops-icon span {
+.ccc-icon span {
 	display: none;
 }
 
-.codrops-icon:before {
+.ccc-icon:before {
 	margin: 0 4px;
 	text-transform: none;
 	font-weight: normal;
 	font-style: normal;
 	font-variant: normal;
-	font-family: 'codropsicons';
+	font-family: 'cccicons';
 	line-height: 1;
 	speak: none;
 	-webkit-font-smoothing: antialiased;
 }
 
-.codrops-icon-drop:before {
+.ccc-icon-drop:before {
 	content: "\e001";
 }
 
-.codrops-icon-prev:before {
+.ccc-icon-prev:before {
 	content: "\e004";
 }
 
 @media screen and (max-width: 60.625em) {
-	.codrops-header,
+	.ccc-header,
 	.sidebar {
 		float: none;
 		max-width: 100%;

@@ -18,7 +18,18 @@
 
     <script src="{{ asset('js/jquery.min.js') }}"></script>
     <script src="{{ asset('js/bootstrap.min.js') }}"></script>
-    
+
+    <style>
+        #chatMessages{
+            font-size: 14px;
+            font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+            height: 200px;
+            overflow-y: scroll;
+            color: black;
+            background-color: #1b6d85;
+        }
+    </style>
+
     <!--[if IE]>
     <script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
     <![endif]-->
@@ -44,11 +55,11 @@
 
         <span class="mmmsearch-close"></span>
     </div>
-    <header class="codrops-header">
-        <h1>Pick the Room <span>Laravel Real Time Web Chat App.</span></h1>
-        <div class="codrops-links">
-            <a class="codrops-icon codrops-icon-prev" href="http://tympanus.net/Development/WobblySlideshowEffect/"><span>Previous Demo</span></a>
-            <a class="codrops-icon codrops-icon-drop" href="http://tympanus.net/codrops/?p=21106"><span>Back to the Codrops Article</span></a>
+    <header class="ccc-header">
+        <h1>ChatRooms <span>Laravel Real Time Web Chat App.</span></h1>
+        <div class="ccc-links">
+            <a class="ccc-icon ccc-icon-prev" href="#"><span>Previous Demo</span></a>
+            <a class="ccc-icon ccc-icon-drop" href="#"><span>Back to the ccc Article</span></a>
         </div>
     </header>
     <div class="overlay"></div>
@@ -101,7 +112,7 @@
             }
         } );
 
-        /***** for demo purposes only: don't allow to submit the form *****/
+        //ss TODO: for demo purposes only: don't allow to submit the form
         mmmSearch.querySelector( 'button[type="submit"]' ).addEventListener( 'click', function(ev) { ev.preventDefault(); } );
     })();
 </script>
