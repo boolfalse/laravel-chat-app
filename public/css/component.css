@@ -7,7 +7,7 @@ body {
 	overflow-y: scroll;
 }
 
-.morphsearch {
+.mmmsearch {
 	width: 200px;
 	min-height: 40px;
 	background: #f1f1f1;
@@ -25,14 +25,14 @@ body {
 	transition-timing-function: cubic-bezier(0.7,0,0.3,1);
 }
 
-.morphsearch.open {
+.mmmsearch.open {
 	width: 100%;
 	min-height: 100%;
 	top: 0px;
 	right: 0px;
 }
 
-.morphsearch-form {
+.mmmsearch-form {
 	width: 100%;
 	height: 40px;
 	margin: 0 auto;
@@ -45,14 +45,14 @@ body {
 	transition-timing-function: cubic-bezier(0.7,0,0.3,1);
 }
 
-.morphsearch.open .morphsearch-form {
+.mmmsearch.open .mmmsearch-form {
 	width: 80%;
 	height: 160px;
 	-webkit-transform: translate3d(0,3em,0);
 	transform: translate3d(0,3em,0);
 }
 
-.morphsearch-input {
+.mmmsearch-input {
 	width: 100%;
 	height: 100%;
 	padding: 0 10% 0 10px;
@@ -65,34 +65,34 @@ body {
 	transition: font-size 0.5s cubic-bezier(0.7,0,0.3,1);
 }
 
-.morphsearch-input::-ms-clear { /* remove cross in IE */
+.mmmsearch-input::-ms-clear { /* remove cross in IE */
     display: none;
 }
 
-.morphsearch.hideInput .morphsearch-input {
+.mmmsearch.hideInput .mmmsearch-input {
 	color: transparent;
 	-webkit-transition: color 0.3s;
 	transition: color 0.3s;
 }
 
-.morphsearch.open .morphsearch-input {
+.mmmsearch.open .mmmsearch-input {
 	font-size: 7em;
 }
 
 /* placeholder */
-.morphsearch-input::-webkit-input-placeholder {
+.mmmsearch-input::-webkit-input-placeholder {
 	color: #c2c2c2;
 }
 
-.morphsearch-input:-moz-placeholder {
+.mmmsearch-input:-moz-placeholder {
 	color: #c2c2c2;
 }
 
-.morphsearch-input::-moz-placeholder {
+.mmmsearch-input::-moz-placeholder {
 	color: #c2c2c2;
 }
 
-.morphsearch-input:-ms-input-placeholder {
+.mmmsearch-input:-ms-input-placeholder {
 	color: #c2c2c2;
 }
 
@@ -106,12 +106,12 @@ input[type="search"] { /* reset normalize */
 	box-sizing: border-box;	
 }
 
-.morphsearch-input:focus,
-.morphsearch-submit:focus {
+.mmmsearch-input:focus,
+.mmmsearch-submit:focus {
 	outline: none;
 }
 
-.morphsearch-submit {
+.mmmsearch-submit {
 	position: absolute;
 	width: 80px;
 	height: 80px;
@@ -129,7 +129,7 @@ input[type="search"] { /* reset normalize */
 	transform: translate3d(-30px,-50%,0) scale3d(0,0,1);
 }
 
-.morphsearch.open .morphsearch-submit {
+.mmmsearch.open .mmmsearch-submit {
 	pointer-events: auto;
 	opacity: 1;
 	-webkit-transform: translate3d(-30px,-50%,0) scale3d(1,1,1);
@@ -140,7 +140,7 @@ input[type="search"] { /* reset normalize */
 	transition-delay: 0.5s;
 }
 
-.morphsearch-close {
+.mmmsearch-close {
 	width: 36px;
 	height: 36px;
 	position: absolute;
@@ -155,7 +155,7 @@ input[type="search"] { /* reset normalize */
 	transform: scale3d(0,0,1);
 }
 
-.morphsearch.open .morphsearch-close {
+.mmmsearch.open .mmmsearch-close {
 	opacity: 1;
 	pointer-events: auto;
 	-webkit-transform: scale3d(1,1,1);
@@ -166,8 +166,8 @@ input[type="search"] { /* reset normalize */
 	transition-delay: 0.5s;
 }
 
-.morphsearch-close::before,
-.morphsearch-close::after {
+.mmmsearch-close::before,
+.mmmsearch-close::after {
 	content: '';
 	position: absolute;
 	width: 2px;
@@ -179,22 +179,22 @@ input[type="search"] { /* reset normalize */
 	background: #000;
 }
 
-.morphsearch-close:hover.morphsearch-close::before,
-.morphsearch-close:hover.morphsearch-close::after {
+.mmmsearch-close:hover.mmmsearch-close::before,
+.mmmsearch-close:hover.mmmsearch-close::after {
 	opacity: 1;
 }
 
-.morphsearch-close::before {
+.mmmsearch-close::before {
 	-webkit-transform: rotate(45deg);
 	transform: rotate(45deg);
 }
 
-.morphsearch-close::after {
+.mmmsearch-close::after {
 	-webkit-transform: rotate(-45deg);
 	transform: rotate(-45deg);
 }
 
-.morphsearch-content {
+.mmmsearch-content {
 	color: #333;
 	margin-top: 4.5em;
 	width: 100%;
@@ -207,7 +207,7 @@ input[type="search"] { /* reset normalize */
 	opacity: 0;
 }
 
-.morphsearch.open .morphsearch-content {
+.mmmsearch.open .mmmsearch-content {
 	opacity: 1;
 	height: auto;
 	overflow: visible; /* this breaks the transition of the children in FF: https://bugzilla.mozilla.org/show_bug.cgi?id=625289 */
@@ -227,22 +227,22 @@ input[type="search"] { /* reset normalize */
 	transition: transform 0.5s, opacity 0.5s;
 }
 
-.morphsearch.open .dummy-column:first-child {
+.mmmsearch.open .dummy-column:first-child {
 	-webkit-transition-delay: 0.4s;
 	transition-delay: 0.4s;
 }
 
-.morphsearch.open .dummy-column:nth-child(2) {
+.mmmsearch.open .dummy-column:nth-child(2) {
 	-webkit-transition-delay: 0.45s;
 	transition-delay: 0.45s;
 }
 
-.morphsearch.open .dummy-column:nth-child(3) {
+.mmmsearch.open .dummy-column:nth-child(3) {
 	-webkit-transition-delay: 0.5s;
 	transition-delay: 0.5s;
 }
 
-.morphsearch.open .dummy-column {
+.mmmsearch.open .dummy-column {
 	opacity: 1;
 	-webkit-transform: translate3d(0,0,0);
 	transform: translate3d(0,0,0);
@@ -316,15 +316,15 @@ input[type="search"] { /* reset normalize */
 	transition-timing-function: cubic-bezier(0.7,0,0.3,1);
 }
 
-.morphsearch.open ~ .overlay {
+.mmmsearch.open ~ .overlay {
 	opacity: 1;
 }
 
 @media screen and (max-width: 53.125em) {
-	.morphsearch-input {
+	.mmmsearch-input {
 		padding: 0 25% 0 10px;
 	}
-	.morphsearch.open .morphsearch-input {
+	.mmmsearch.open .mmmsearch-input {
 		font-size: 2em;
 	}
 	.dummy-column {
@@ -335,14 +335,14 @@ input[type="search"] { /* reset normalize */
 	.dummy-column:nth-child(2) {
 		margin: 0;
 	}
-	.morphsearch.open .morphsearch-submit {
+	.mmmsearch.open .mmmsearch-submit {
 		-webkit-transform: translate3d(0,-50%,0) scale3d(0.5,0.5,1);
 		transform: translate3d(0,-50%,0) scale3d(0.5,0.5,1);
 	}
 }
 
 @media screen and (max-width: 60.625em) {
-	.morphsearch {
+	.mmmsearch {
 		width: 80%;
 		top: 10%;
 		right: 10%;

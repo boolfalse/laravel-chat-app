@@ -17,7 +17,7 @@
 
 
     @if(count($rooms) > 0)
-        <div id="load_rooms" class="morphsearch-content">
+        <div id="load_rooms" class="mmmsearch-content">
             @include('load_rooms')
         </div>
     @endif
