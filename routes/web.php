@@ -13,4 +13,6 @@
 
 Auth::routes();
 
-Route::get('/', ['as' => 'resumes', 'uses' => 'ChatController@homePage']);
+Route::get('/', ['as' => 'home', 'uses' => 'ChatController@homePage']);
+
+Route::post('/add-room', ['as' => 'addRoom', 'uses' => 'ChatController@addRoom']);

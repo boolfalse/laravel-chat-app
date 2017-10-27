@@ -20,7 +20,7 @@
     <script src="{{ asset('js/bootstrap.min.js') }}"></script>
 
     <style>
-        #newRoomModal,
+        #addRoomModal,
         #roomModal{
             font-size: 14px;
             font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
@@ -63,7 +63,7 @@
         <div class="ccc-links">
             @if(Auth::check())
                 <a class="btn btn-xs btn-warning" href="{{ route('logout') }}" onclick="event.preventDefault();document.getElementById('logout-app').submit();"><span>Logout</span></a>
-                <button class="btn btn-xs btn-success" data-toggle="modal" data-target="#newRoomModal"><span>New Room</span></button>
+                <button class="btn btn-xs btn-success" data-toggle="modal" data-target="#addRoomModal"><span>New Room</span></button>
             @else
                 <a class="btn btn-xs btn-info" href="{{ route('register') }}"><span>Register</span></a>
                 <a class="btn btn-xs btn-success" href="{{ route('login') }}"><span>Login</span></a>
@@ -78,6 +78,8 @@
     <form id="logout-app" action="{{ route('logout') }}" method="POST" style="display: none;">
         {{ csrf_field() }}
     </form>
+
+    <script src="{{ asset('js/jquery.form.js') }}"></script>
 @endif
 
 <script src="{{ asset('js/classie.js') }}"></script>

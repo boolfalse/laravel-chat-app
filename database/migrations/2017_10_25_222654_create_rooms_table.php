@@ -18,8 +18,9 @@ class CreateRoomsTable extends Migration
             $table->integer('user_id')->unsigned(); // foreign key
 
             $table->string('name', 100);
-            $table->string('image', 30);
-            $table->boolean('access')->default(true);
+            $table->string('image', 15)->nullable();
+            $table->string('token_key', 15)->nullable();
+            $table->enum('access', ['public', 'protected', 'private'])->default('public');
 
             $table->timestamps();
 

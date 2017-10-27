@@ -12,6 +12,7 @@ class Room extends Model
         'name',
         'image',
         'access',
+        'token_key',
     ];
 
     public function user(){

@@ -2,99 +2,40 @@
 
 @section('content')
 
-    {{--<div class="container">--}}
-        {{--<div class="form-group pull-right">--}}
-            {{--<button id="room_search" type="button" class="btn btn-info btn-lg"><i class="fa fa-search"></i></button>--}}
-        {{--</div>--}}
-        {{--<div class="form-group pull-left">--}}
-            {{--<button id="create_room" type="button" class="btn btn-info btn-lg">Create room</button>--}}
-        {{--</div>--}}
-        {{--<div id="system_message" class="pull-left"></div>--}}
-        {{--<div class="clearfix"></div>--}}
-    {{--</div>--}}
-
     <div id="load_rooms" class="mmmsearch-content">
         <div class="dummy-column">
-            <h2>People</h2>
-            {{--data-toggle="modal" data-target="#roomModal"--}}
-            <a class="dummy-media-object" href="#" data-room="123abc456def">
-                <img class="round" src="{{ asset('img/user_image.jpeg') }}" alt="user_1"/>
-                <h3>User Name</h3>
-            </a>
-            <a class="dummy-media-object" href="#">
-                <img class="round" src="{{ asset('img/user_image.jpeg') }}" alt="user_2"/>
-                <h3>User Name</h3>
-            </a>
-            <a class="dummy-media-object" href="#">
-                <img class="round" src="{{ asset('img/user_image.jpeg') }}" alt="user_3"/>
-                <h3>User Name</h3>
-            </a>
-            <a class="dummy-media-object" href="#">
-                <img class="round" src="{{ asset('img/user_image.jpeg') }}" alt="user_4"/>
-                <h3>User Name</h3>
-            </a>
-            <a class="dummy-media-object" href="#">
-                <img class="round" src="{{ asset('img/user_image.jpeg') }}" alt="user_5"/>
-                <h3>User Name</h3>
-            </a>
-            <a class="dummy-media-object" href="#">
-                <img class="round" src="{{ asset('img/user_image.jpeg') }}" alt="user_6"/>
-                <h3>User Name</h3>
-            </a>
+            <h2>Public</h2>
+            {{--data-toggle="modal" data-target="#roomModal" data-room="123abc456def"--}}
+            @foreach($rooms as $room)
+                @if($room->access == "public")
+                <a class="dummy-media-object" href="#">
+                    <img class="{{ (Auth::user()->id == $room->user->id) ? 'round' : ''}}" src="{{ asset('uploads/'.$room->image) }}" alt="{{ $room->user->name }}"/>
+                    <h3>{{ $room->user->name }}</h3>
+                </a>
+                @endif
+            @endforeach
         </div>
         <div class="dummy-column">
-            <h2>Popular</h2>
-            <a class="dummy-media-object" href="#">
-                <img src="{{ asset('img/room_image.png') }}" alt="room_image"/>
-                <h3>Room Name</h3>
-            </a>
-            <a class="dummy-media-object" href="#">
-                <img src="{{ asset('img/room_image.png') }}" alt="room_image"/>
-                <h3>Room Name</h3>
-            </a>
-            <a class="dummy-media-object" href="#">
-                <img src="{{ asset('img/room_image.png') }}" alt="room_image"/>
-                <h3>Room Name</h3>
-            </a>
-            <a class="dummy-media-object" href="#">
-                <img src="{{ asset('img/room_image.png') }}" alt="room_image"/>
-                <h3>Room Name</h3>
-            </a>
-            <a class="dummy-media-object" href="#">
-                <img src="{{ asset('img/room_image.png') }}" alt="room_image"/>
-                <h3>Room Name</h3>
-            </a>
-            <a class="dummy-media-object" href="#">
-                <img src="{{ asset('img/room_image.png') }}" alt="room_image"/>
-                <h3>Room Name</h3>
-            </a>
+            <h2>Public</h2>
+            @foreach($rooms as $room)
+                @if($room->access == "protected")
+                    <a class="dummy-media-object" href="#">
+                        <img class="{{ (Auth::user()->id ==  $room->user->id) ? 'round' : ''}}" src="{{ asset('uploads/'.$room->image) }}" alt="{{ $room->user->name }}"/>
+                        <h3>{{ $room->user->name }}</h3>
+                    </a>
+                @endif
+            @endforeach
         </div>
         <div class="dummy-column">
-            <h2>Recent</h2>
-            <a class="dummy-media-object" href="#">
-                <img src="{{ asset('img/room_image.png') }}" alt="room_image"/>
-                <h3>Room Name</h3>
-            </a>
-            <a class="dummy-media-object" href="#">
-                <img src="{{ asset('img/room_image.png') }}" alt="room_image"/>
-                <h3>Room Name</h3>
-            </a>
-            <a class="dummy-media-object" href="#">
-                <img src="{{ asset('img/room_image.png') }}" alt="room_image"/>
-                <h3>Room Name</h3>
-            </a>
-            <a class="dummy-media-object" href="#">
-                <img src="{{ asset('img/room_image.png') }}" alt="room_image"/>
-                <h3>Room Name</h3>
-            </a>
-            <a class="dummy-media-object" href="#">
-                <img src="{{ asset('img/room_image.png') }}" alt="room_image"/>
-                <h3>Room Name</h3>
-            </a>
-            <a class="dummy-media-object" href="#">
-                <img src="{{ asset('img/room_image.png') }}" alt="room_image"/>
-                <h3>Room Name</h3>
-            </a>
+            <h2>Public</h2>
+            @foreach($rooms as $room)
+                @if($room->access == "private")
+                    <a class="dummy-media-object" href="#">
+                        <img class="{{ (Auth::user()->id ==  $room->user->id) ? 'round' : ''}}" src="{{ asset('uploads/'.$room->image) }}" alt="{{ $room->user->name }}"/>
+                        <h3>{{ $room->user->name }}</h3>
+                    </a>
+                @endif
+            @endforeach
         </div>
     </div>
 
@@ -125,35 +66,44 @@
     </div>
 
     @if(Auth::check())
-        <div class="modal fade" id="newRoomModal" role="dialog">
+        <div class="modal fade" id="addRoomModal" role="dialog">
             <div class="modal-dialog">
                 <div class="modal-content">
-                    <div class="modal-header">
-                        <button type="button" class="close" data-dismiss="modal">&times;</button>
-                        <h4 class="modal-title">Create New Chat Room (Select Access Scope for Room)</h4>
-                    </div>
-                    <div class="modal-body">
-                        <div class="form-group">
-                            <input type="text" class="form-control" value="" placeholder="Room Name">
+                    <form id="upload_form" method="POST" action="{{ route('addRoom') }}"  enctype="multipart/form-data" role="form">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal">&times;</button>
+                            <h4 class="modal-title">Create New Chat Room (Select Access Scope for Room)</h4>
                         </div>
-                        <div class="form-group">
-                            <input id="publicAccess" type="radio" name="roomAccess" value="public" checked>
-                            <label for="publicAccess">Public for all (also for not registered) users.</label>
+                        <div class="modal-body">
+                            <div class="alert alert-danger print-error-msg" style="display:none"><ul></ul></div>
+                            <div class="form-group">
+                                <input id="room_image" type="file" name="room_image" style="display: inline-block">
+                                <label for="room_image" class="col-md-4 control-label">Upload Room Image: </label>
+                            </div>
+                            <div class="form-group">
+                                <input id="room_name" type="text" class="form-control" value="" name="room_name" placeholder="Room Name" required>
+                            </div>
+                            <div class="form-group">
+                                <input id="publicAccess" type="radio" name="room_access" value="public" checked>
+                                <label for="publicAccess">Public for all (also for not registered) users.</label>
+                            </div>
+                            <div class="form-group">
+                                <input id="protectedAccess" type="radio" name="room_access" value="protected">
+                                <label for="protectedAccess">Available only for registered users.</label>
+                            </div>
+                            <div class="form-group">
+                                <input id="privateAccess" type="radio" name="room_access" value="private">
+                                <label for="privateAccess">Can access only with specific token URL.</label>
+                                <button id="generateToken" type="button" class="btn btn-xs btn-default" disabled>Copy Autogenerated Token to Clipboard</button>
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <input id="protectedAccess" type="radio" name="roomAccess" value="protected">
-                            <label for="protectedAccess">Available only for registered users.</label>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-close"></i> Cancel</button>
+                            <button id="addNewRoom" type="submit" class="btn btn-success"><i class="fa fa-plus"></i> Create</button>
                         </div>
-                        <div class="form-group">
-                            <input id="privateAccess" type="radio" name="roomAccess" value="private">
-                            <label for="privateAccess">Can access only with specific token URL.</label>
-                            <button type="button" class="btn btn-xs btn-default" disabled>Copy Autogenerated Token to Clipboard!</button>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-default" data-dismiss="modal"><i class="fa fa-close"></i> Cancel</button>
-                        <button id="addNewRoom" type="submit" class="btn btn-success"><i class="fa fa-plus"></i> Create</button>
-                    </div>
+                        <input id="token_key" type="hidden" name="token_key" value="" />
+                        <input type="hidden" name="_token" value="{{ csrf_token() }}" />
+                    </form>
                 </div>
 
             </div>
@@ -174,6 +124,36 @@
             $('#messageInput').val('');
             socket.send(message);
             appendMessage(message);
+        }
+        function generateRandomString() {
+            var chars = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+            var length = chars.length;
+            var string = '';
+            for (var i=0; i<12; i++) {
+                string += chars[Math.round(Math.random() * length)];
+            }
+            return string;
+        }
+        function copyToClipboard(text) {
+            if (window.clipboardData && window.clipboardData.setData) {
+                // IE specific code path to prevent textarea being shown while dialog is visible.
+                return clipboardData.setData("Text", text);
+
+            } else if (document.queryCommandSupported && document.queryCommandSupported("copy")) {
+                var textarea = document.createElement("textarea");
+                textarea.textContent = text;
+                textarea.style.position = "fixed";  // Prevent scrolling to bottom of page in MS Edge.
+                document.body.appendChild(textarea);
+                textarea.select();
+                try {
+                    return document.execCommand("copy");  // Security exception may be thrown by some browsers.
+                } catch (ex) {
+                    console.warn("Copy to clipboard failed.", ex);
+                    return false;
+                } finally {
+                    document.body.removeChild(textarea);
+                }
+            }
         }
 
         socket.on('message', function (data) {
@@ -208,6 +188,46 @@
             }
         });
 
+        // THROWN WARNINGS ON ROOM ADDING
+        function printErrorMsg (msg) {
+            $('.print-error-msg').find('ul').html('');
+            $('.print-error-msg').css('display','block');
+            $.each( msg, function( key, value ) {
+                $('.print-error-msg').find("ul").append('<li>'+value+'</li>');
+            });
+        }
+        // AJAX REQUEST FOR ADDING NEW ROOM WITH IMAGE UPLOAD
+        $("#addNewRoom").click(function(){
+            var options = {
+                complete: function(response) {
+                    if($.isEmptyObject(response.responseJSON.error)){
+                        $('#addRoomModal').modal('hide');
+                    }else{
+                        printErrorMsg(response.responseJSON.error);
+                    }
+                }
+            };
+            $("#upload_form").ajaxForm(options);
+        });
+
+        $('#upload_form input[type="radio"]').on('change', function () {
+            var s = $('#privateAccess').is(':checked');
+            $('#generateToken').prop('disabled', !s);
+            $('#addNewRoom').prop('disabled', s);
+        });
+        $('#generateToken').on('click', function () {
+            var token_key = generateRandomString();
+            $('#token_key').val(token_key);
+            $('#addNewRoom').prop('disabled', false);
+            copyToClipboard(token_key);
+            $('#generateToken').html('Copied!');
+        });
+
+        $('#addRoomModal').on('hidden.bs.modal', function () {
+            $('#room_name, #room_image, #token_key').val('');
+            $('#publicAccess').prop('checked', true);
+            $('#generateToken').html('Copy Autogenerated Token to Clipboard');
+        });
     </script>
 
 
