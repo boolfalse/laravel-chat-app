@@ -6,6 +6,7 @@ use App\Room;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Validator;
+use Intervention\Image\ImageManagerStatic as Image;
 
 class ChatController extends Controller
 {
@@ -42,7 +43,8 @@ class ChatController extends Controller
                 'room_name.required' => 'Room Name required!',
                 'room_name.max' => 'Room Name can contain max 100 characters!',
             ];
-            if(!empty($request->room_image)){ //ss TODO: check this and do with Laravel validation functionalities
+            $image = $request->file('room_image');
+            if(!empty($image)){ //ss TODO: check this and do with Laravel validation functionalities
                 $rules['room_image'] = 'image|mimes:jpg,jpeg,png|max:1048576';
                 $messages['room_image.mimes'] = 'Image can have "JP(E)G", "PNG" extension!';
                 $messages['room_image.max'] = 'Image is too big!';
@@ -53,7 +55,7 @@ class ChatController extends Controller
                     'error' => $validator->errors()->all()
                 ]);
             }else{
-                $access = "public"; // default public
+                $access = "public"; // default public, we'll detect room access selected by user from front
                 if($request->get('room_access') == "protected"){
                     $access = "protected";
                 }
@@ -64,22 +66,19 @@ class ChatController extends Controller
 
                 $room = new Room();
                 $room->name = $request->get('room_name');
-                $file = $request->room_image;
-                if(!empty($file)){
-                    $random_token = $this->generateRandomString();
-                    $fileName = $random_token.'.'.$file->getClientOriginalExtension();
-                    $room->image = $fileName;
+                if(!empty($image)){
+                    $name_with_ext = $this->generateRandomString()  .'.'. $image->getClientOriginalExtension();
+                    $path = public_path('uploads') . DIRECTORY_SEPARATOR . $name_with_ext;
+                    Image::make($image->getRealPath())->resize(50, 50)->save($path);
+                    $room->image = $name_with_ext;
                 }
-                if($access=="private" && strlen($token_key)>0){
+                if($access=="private" && !empty($token_key)){
                     $room->token_key = $token_key;
                 }
                 $room->access = $access;
                 $room->user()->associate(Auth::user()->id);
                 $room->save();
 
-                if(!empty($file)){
-                    $file->move(public_path('uploads'), $fileName);
-                }
                 return response()->json([
                     'success' => true,
                 ]);

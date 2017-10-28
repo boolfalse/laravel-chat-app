@@ -3,39 +3,60 @@
 @section('content')
 
     <div id="load_rooms" class="mmmsearch-content">
+        {{--//ss TODO: optimize getting 3 types of rooms (public, protected, private) process--}}
         <div class="dummy-column">
             <h2>Public</h2>
             {{--data-toggle="modal" data-target="#roomModal" data-room="123abc456def"--}}
             @foreach($rooms as $room)
                 @if($room->access == "public")
                 <a class="dummy-media-object" href="#">
-                    <img class="{{ (Auth::user()->id == $room->user->id) ? 'round' : ''}}" src="{{ asset('uploads/'.$room->image) }}" alt="{{ $room->user->name }}"/>
-                    <h3>{{ $room->user->name }}</h3>
+                    @if(Auth::check())
+                    <img class="{{ (Auth::user()->id == $room->user->id) ? 'round' : ''}}" src="{{ empty($room->image) ? asset('img/default_user_image.jpeg') : asset('uploads/'.$room->image) }}" alt="{{ $room->user->name }}"/>
+                    @else
+                    <img src="{{ asset('uploads/'.$room->image) }}" alt="{{ $room->user->name }}"/>
+                    @endif
+                    <h3>"{{ $room->name }}" created by {{ $room->user->name }}</h3>
                 </a>
                 @endif
             @endforeach
         </div>
-        <div class="dummy-column">
-            <h2>Public</h2>
+        <div class="dummy-column showHiddenItemsOnHover">
+            <h2>Protected</h2>
+            @if(Auth::check())
             @foreach($rooms as $room)
                 @if($room->access == "protected")
-                    <a class="dummy-media-object" href="#">
-                        <img class="{{ (Auth::user()->id ==  $room->user->id) ? 'round' : ''}}" src="{{ asset('uploads/'.$room->image) }}" alt="{{ $room->user->name }}"/>
-                        <h3>{{ $room->user->name }}</h3>
-                    </a>
+                <a class="dummy-media-object" href="#">
+                    <img class="{{ (Auth::user()->id == $room->user->id) ? 'round' : ''}}" src="{{ empty($room->image) ? asset('img/default_user_image.jpeg') : asset('uploads/'.$room->image) }}" alt="{{ $room->user->name }}"/>
+                    <h3>"{{ $room->name }}" created by {{ $room->user->name }}</h3>
+                </a>
                 @endif
             @endforeach
+                @else
+                <p style="color: #ec5a62"><strong>For seeing Protected Rooms You need to logged in!</strong></p>
+                <div class="ccc-links">
+                    <a class="btn btn-xs btn-info" href="{{ route('register') }}"><span>Register</span></a>
+                    <a class="btn btn-xs btn-success" href="{{ route('login') }}"><span>Login</span></a>
+                </div>
+            @endif
         </div>
-        <div class="dummy-column">
-            <h2>Public</h2>
+        <div class="dummy-column showHiddenItemsOnHover">
+            <h2>Private</h2>
+            @if(Auth::check())
             @foreach($rooms as $room)
                 @if($room->access == "private")
-                    <a class="dummy-media-object" href="#">
-                        <img class="{{ (Auth::user()->id ==  $room->user->id) ? 'round' : ''}}" src="{{ asset('uploads/'.$room->image) }}" alt="{{ $room->user->name }}"/>
-                        <h3>{{ $room->user->name }}</h3>
-                    </a>
+                <a class="dummy-media-object" href="#">
+                    <img class="{{ (Auth::user()->id == $room->user->id) ? 'round' : ''}}" src="{{ empty($room->image) ? asset('img/default_user_image.jpeg') : asset('uploads/'.$room->image) }}" alt="{{ $room->user->name }}"/>
+                    <h3><i class="fa fa-lock"></i> "{{ $room->name }}" created by {{ $room->user->name }}</h3>
+                </a>
                 @endif
             @endforeach
+                @else
+                <p style="color: #ec5a62"><strong>For seeing Private Rooms You need to logged in!</strong></p>
+                <div class="ccc-links">
+                    <a class="btn btn-xs btn-info" href="{{ route('register') }}"><span>Register</span></a>
+                    <a class="btn btn-xs btn-success" href="{{ route('login') }}"><span>Login</span></a>
+                </div>
+            @endif
         </div>
     </div>
 

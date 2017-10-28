@@ -31,6 +31,12 @@
             overflow-y: scroll;
             background-color: #1b6d85;
         }
+        .showHiddenItemsOnHover .ccc-links{
+            display: none;
+        }
+        .showHiddenItemsOnHover:hover .ccc-links{
+            display: block;
+        }
     </style>
 
     <!--[if IE]>
