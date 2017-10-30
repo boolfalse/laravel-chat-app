@@ -18,4 +18,8 @@ class Room extends Model
     public function user(){
         return $this->belongsTo('App\User');
     }
+
+    public function private_hashes(){
+        return $this->hasMany('App\PrivateHash');
+    }
 }

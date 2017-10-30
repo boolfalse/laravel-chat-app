@@ -4,24 +4,22 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateRoomsTable extends Migration
+class CreatePrivateHashesTable extends Migration
 {
     public function up()
     {
-        Schema::create('rooms', function (Blueprint $table) {
+        Schema::create('private_hashes', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id')->unsigned(); // foreign key
+            $table->integer('room_id')->unsigned(); // foreign key
 
-            $table->string('name', 100);
-            $table->string('image', 15)->nullable();
-            $table->string('token_key', 15)->nullable();
-            $table->enum('access', ['public', 'protected', 'private'])->default('public');
+            $table->string('hash', 60);
 
             $table->timestamps();
 
-            $table->foreign('user_id')
+            $table->foreign('room_id')
                 ->references('id')
-                ->on('users')
+                ->on('rooms')
                 ->onDelete('cascade')
                 ->onUpdate('cascade');
         });
@@ -29,6 +27,6 @@ class CreateRoomsTable extends Migration
 
     public function down()
     {
-        Schema::dropIfExists('rooms');
+        Schema::dropIfExists('private_hashes');
     }
 }
